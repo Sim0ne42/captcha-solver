@@ -1,0 +1,35 @@
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: postgres
+    password: docker
+    jdbc:
+      url: jdbc:postgresql://localhost:5432/postgres
+      max-size: 20
+
+  liquibase:
+    enabled: true
+    migrate-at-start: true
+    change-log: db/changelog/changelog-master.yml
+    database-change-log-lock-table-name: captcha_databasechangeloglock
+    database-change-log-table-name: captcha_databasechangelog
+
+  http:
+    cors: true
+
+"%dev":
+  quarkus:
+    http:
+      cors:
+        origins: /.*/
+
+  log:
+    category:
+      "org.captcha.solver":
+        level: DEBUG
+
+supported:
+  formats: png,jpg
+
+accuracy:
+  threshold: 80

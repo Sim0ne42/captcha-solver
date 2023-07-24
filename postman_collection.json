@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "6885cbe6-901b-441c-85c2-87326b1dc888",
+		"name": "Captcha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get random captcha",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/captcha/random",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"captcha",
+						"random"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify captcha",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"captchaId\": 1000,\n    \"text\": \"3ny45\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/captcha/verify",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"captcha",
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add captcha",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "filename",
+							"value": "1A5b9.jpg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{baseUrl}}/captcha/add",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"captcha",
+						"add"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

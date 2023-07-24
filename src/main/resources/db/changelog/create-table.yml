@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - logicalFilePath: /db/changelog/create-table.yml
+  - changeSet:
+      id: 1
+      author: smaliziola
+      changes:
+        - sqlFile:
+            dbms: postgresql, h2
+            path: /db/changelog/changes/create-table.sql
