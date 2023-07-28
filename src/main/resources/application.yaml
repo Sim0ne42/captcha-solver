@@ -17,6 +17,12 @@ quarkus:
   http:
     cors: true
 
+  swagger-ui:
+    theme: original
+
+  smallrye-openapi:
+    info-version: 1.0.1
+
 "%dev":
   quarkus:
     http:
@@ -33,3 +39,4 @@ supported:
 
 accuracy:
   threshold: 80
+
