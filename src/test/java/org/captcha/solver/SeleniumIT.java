@@ -59,6 +59,7 @@ class SeleniumIT {
     var submitButton = driver.findElement(By.className("submit_button"));
     var textBox = driver.findElement(By.id("captcha_text"));
     sendKeys(textBox, predictedValue);
+    randomWait();
     submitButton.click();
     Thread.sleep(4000);
 
@@ -70,9 +71,13 @@ class SeleniumIT {
 
   private void sendKeys(WebElement textBox, String predictedValue) throws InterruptedException {
     for (char c : predictedValue.toCharArray()) {
-      Thread.sleep(new Random().nextInt(500) + 500);
+      randomWait();
       textBox.sendKeys(String.valueOf(c));
     }
+  }
+
+  private void randomWait() throws InterruptedException {
+    Thread.sleep(new Random().nextInt(500) + 500);
   }
 
 }
