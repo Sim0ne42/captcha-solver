@@ -3,7 +3,7 @@
 ## Author
 
 * Simone Maliziola
-* GitHub: https://github.com/Sim0ne42/captcha-solver
+* GitHub: https://github.com/Sim0ne42
 
 ## First steps
 
@@ -82,7 +82,7 @@ Once the application is started, use the tests present
 in [CaptchaServiceIT](src/test/java/org/captcha/solver/service/CaptchaServiceIT.java)
 in order to add the samples to your local DB and predict their value.
 
-At this point, you can use the [index page](http://localhost:63342/captcha-solver/src/main/resources/index.html)
+At this point, you can use the [index page](http://localhost:63342/captcha-solver/target/classes/index.html)
 to get a captcha image and manually enter some text.
 
 You can use [SeleniumIT](src/test/java/org/captcha/solver/SeleniumIT.java) to solve the captcha automatically,

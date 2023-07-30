@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "6885cbe6-901b-441c-85c2-87326b1dc888",
-		"name": "Captcha",
+		"_postman_id": "2e24ef00-1a3c-49b7-b5e3-e45b011bf8c4",
+		"name": "Captcha Solver",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
