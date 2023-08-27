@@ -143,10 +143,7 @@ fig = px.bar(pd.DataFrame(captcha_rdd.filter(lambda x: x[0].isnumeric()).collect
 fig.update_layout(xaxis_title='Numbers')
 fig.show()
 
-"""# Data loading and preprocessing
-
-Each character in the string is mapped to an integer for training the model. Similarly, model predictions are mapped back to strings. For this purpose, two dictionaries are maintained, in order to map characters to integers and integers to characters, respectively.
-"""
+"""# Data loading and preprocessing"""
 
 images = sorted(sc.parallelize(list(map(str, list(Path(path).glob('*.*'))))).filter(
     lambda x: len(x.split('.')) == 2).filter(
@@ -160,12 +157,23 @@ img_width = 200
 img_height = 50
 max_length = max([len(label) for label in labels])
 
+def encode_single_sample(img_path, label):
+    img = tf.io.read_file(img_path)
+    img = tf.io.decode_png(img, channels=1)
+    img = tf.image.convert_image_dtype(img, tf.float32)
+    img = tf.image.resize(img, [img_height, img_width])
+    img = tf.transpose(img, perm=[1, 0, 2])
+    label = char_to_num(tf.strings.unicode_split(label, input_encoding='UTF-8'))
+    return {'image': img, 'label': label}
+
+"""Each character in the string is mapped to an integer for training the model. Similarly, model predictions are mapped back to strings. For this purpose, two dictionaries are maintained, in order to map characters to integers and integers to characters, respectively."""
+
 char_to_num = layers.StringLookup(vocabulary=list(characters), mask_token=None)
 num_to_char = layers.StringLookup(vocabulary=char_to_num.get_vocabulary(), mask_token=None, invert=True)
 
 """# Create train set and validation set"""
 
-def split_data(images, labels, train_size=0.9, shuffle=True):
+def split_data(images, labels, train_size, shuffle):
     size = len(images)
     indices = np.arange(size)
     if shuffle:
@@ -175,16 +183,7 @@ def split_data(images, labels, train_size=0.9, shuffle=True):
     x_valid, y_valid = images[indices[train_samples:]], labels[indices[train_samples:]]
     return x_train, x_valid, y_train, y_valid
 
-x_train, x_valid, y_train, y_valid = split_data(np.array(images), np.array(labels))
-
-def encode_single_sample(img_path, label):
-    img = tf.io.read_file(img_path)
-    img = tf.io.decode_png(img, channels=1)
-    img = tf.image.convert_image_dtype(img, tf.float32)
-    img = tf.image.resize(img, [img_height, img_width])
-    img = tf.transpose(img, perm=[1, 0, 2])
-    label = char_to_num(tf.strings.unicode_split(label, input_encoding='UTF-8'))
-    return {'image': img, 'label': label}
+x_train, x_valid, y_train, y_valid = split_data(np.array(images), np.array(labels), 0.9, True)
 
 train_dataset = tf.data.Dataset.from_tensor_slices((x_train, y_train))
 train_dataset = (train_dataset.map(encode_single_sample, num_parallel_calls=tf.data.AUTOTUNE).batch(batch_size).prefetch(buffer_size=tf.data.AUTOTUNE))

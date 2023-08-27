@@ -38,4 +38,4 @@ supported:
   formats: png,jpg
 
 accuracy:
-  threshold: 80
+  threshold: 90
