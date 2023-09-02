@@ -2,12 +2,12 @@ package org.captcha.solver.domain;
 
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import lombok.SneakyThrows;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -37,7 +37,8 @@ class MultipartBodyTest {
     assertEquals(expectedViolations, actual.size());
   }
 
-  private static Stream<Arguments> provideArguments() throws IOException {
+  @SneakyThrows
+  private static Stream<Arguments> provideArguments() {
     var path = Path.of(getSampleUri());
     var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));
     return Stream.of(

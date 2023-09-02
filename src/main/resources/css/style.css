@@ -72,7 +72,7 @@ header {
     border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.captch_box input {
+.captcha_box input {
     color: #6b6b6b;
     font-size: 22px;
     pointer-events: none;

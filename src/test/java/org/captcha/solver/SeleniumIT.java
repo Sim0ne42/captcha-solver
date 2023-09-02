@@ -2,6 +2,7 @@ package org.captcha.solver;
 
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.captcha.solver.service.CaptchaService;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import java.net.URISyntaxException;
 import java.time.Duration;
 import java.util.Random;
 
@@ -39,12 +39,12 @@ class SeleniumIT {
     }
   }
 
-  private void predictValueAndSubmit(RemoteWebDriver driver) throws InterruptedException, URISyntaxException {
+  @SneakyThrows
+  private void predictValueAndSubmit(RemoteWebDriver driver) {
     // Load page
     var index = getClass().getClassLoader().getResource("index.html");
     driver.get(String.format("file:///%s", index.toURI().getPath()));
-    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
-    Thread.sleep(1000);
+    driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
 
     // Check if captcha is present
     var image = driver.findElement(By.className("captcha_image"));
@@ -58,25 +58,27 @@ class SeleniumIT {
     // Submit text
     var submitButton = driver.findElement(By.className("submit_button"));
     var textBox = driver.findElement(By.id("captcha_text"));
-    sendKeys(textBox, predictedValue);
-    randomWait();
+    addText(textBox, predictedValue);
+    randomDelay();
     submitButton.click();
     Thread.sleep(4000);
 
-    // Check if entered captcha is correct
+    // Check if entered text is correct
     var message = driver.findElement(By.className("message"));
     assertEquals("rgba(37, 205, 37, 1)", message.getCssValue("color"));
-    assertEquals("Entered captcha is correct", message.getText());
+    assertEquals("Entered text is correct", message.getText());
   }
 
-  private void sendKeys(WebElement textBox, String predictedValue) throws InterruptedException {
+  @SneakyThrows
+  private void addText(WebElement textBox, String predictedValue) {
     for (char c : predictedValue.toCharArray()) {
-      randomWait();
+      randomDelay();
       textBox.sendKeys(String.valueOf(c));
     }
   }
 
-  private void randomWait() throws InterruptedException {
+  @SneakyThrows
+  private void randomDelay() {
     Thread.sleep(new Random().nextInt(500) + 500);
   }
 

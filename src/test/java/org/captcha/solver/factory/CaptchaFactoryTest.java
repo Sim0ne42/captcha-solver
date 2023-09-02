@@ -1,6 +1,7 @@
 package org.captcha.solver.factory;
 
 import jakarta.ws.rs.BadRequestException;
+import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -111,7 +112,8 @@ class CaptchaFactoryTest {
   class BuildCaptcha {
 
     @Test
-    void shouldBuildEntity() throws IOException {
+    @SneakyThrows
+    void shouldBuildEntity() {
       // given
       var path = Path.of(getSampleUri());
       var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));
@@ -131,7 +133,8 @@ class CaptchaFactoryTest {
     }
 
     @Test
-    void shouldCatchIOException() throws IOException {
+    @SneakyThrows
+    void shouldCatchIOException() {
       // given
       var inputStream = mock(InputStream.class);
 
@@ -144,7 +147,8 @@ class CaptchaFactoryTest {
     }
 
     @Test
-    void shouldCatchImageIOException() throws IOException {
+    @SneakyThrows
+    void shouldCatchImageIOException() {
       // given
       var path = Path.of(getSampleUri());
       var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));
@@ -160,7 +164,8 @@ class CaptchaFactoryTest {
     }
 
     @Test
-    void shouldThrowBadRequestException() throws IOException {
+    @SneakyThrows
+    void shouldThrowBadRequestException() {
       // given
       var path = Path.of(getSampleUri());
       var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));

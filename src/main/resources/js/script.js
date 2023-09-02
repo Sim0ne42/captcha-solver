@@ -3,12 +3,13 @@ const refreshButton = document.querySelector(".refresh_button");
 const captchaInputBox = document.querySelector(".captcha_input input");
 const message = document.querySelector(".message");
 const submitButton = document.querySelector(".button");
+const baseUrl = "http://localhost:8080/"
 
 let captchaId = null;
 
-const generateCaptcha = async () => {
+const getCaptcha = async () => {
     captchaImage.src = "images/loading.gif";
-    const response = await fetch("http://localhost:8080/captcha/random", {
+    const response = await fetch(`${baseUrl}captcha/random`, {
         method: "GET",
         headers: {
             "Accept": "application/json"
@@ -22,7 +23,7 @@ const generateCaptcha = async () => {
 };
 
 const refreshButtonClick = () => {
-    generateCaptcha().then(() => {
+    getCaptcha().then(() => {
         captchaInputBox.value = "";
         captchaKeyUpValidate();
     }).catch(() => handleErrors());
@@ -36,7 +37,7 @@ const captchaKeyUpValidate = () => {
 };
 
 const submitButtonClick = async () => {
-    const response = await fetch("http://localhost:8080/captcha/verify", {
+    const response = await fetch(`${baseUrl}captcha/verify`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -45,10 +46,10 @@ const submitButtonClick = async () => {
     }).catch(() => handleErrors());
     message.classList.add("active");
     if (response.status === 200) {
-        message.innerText = "Entered captcha is correct";
+        message.innerText = "Entered text is correct";
         message.style.color = "#25cd25";
     } else if (response.status === 403) {
-        message.innerText = "Entered captcha is not correct";
+        message.innerText = "Entered text is not correct";
         message.style.color = "#FF2525";
     } else {
         handleErrors()
@@ -65,4 +66,4 @@ refreshButton.addEventListener("click", refreshButtonClick);
 captchaInputBox.addEventListener("keyup", captchaKeyUpValidate);
 submitButton.addEventListener("click", submitButtonClick);
 
-generateCaptcha().catch(() => handleErrors());
+getCaptcha().catch(() => handleErrors());

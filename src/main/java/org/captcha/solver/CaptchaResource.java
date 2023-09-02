@@ -34,6 +34,7 @@ public class CaptchaResource {
   @POST
   @Path("/verify")
   @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.APPLICATION_JSON)
   public Response verifyCaptcha(@Valid CaptchaVerification verification) {
     if (captchaService.verify(verification)) {
       log.info("Verification passed");
@@ -46,6 +47,7 @@ public class CaptchaResource {
   @POST
   @Path("/add")
   @Consumes(MediaType.MULTIPART_FORM_DATA)
+  @Produces(MediaType.APPLICATION_JSON)
   public Response addCaptcha(@Valid @MultipartForm MultipartBody data) {
     captchaService.add(data.getFile(), data.getFilename());
     log.info("Captcha successfully added: {}", data.getFilename());

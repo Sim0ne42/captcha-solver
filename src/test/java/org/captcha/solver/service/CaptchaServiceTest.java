@@ -3,6 +3,7 @@ package org.captcha.solver.service;
 import jakarta.ws.rs.BadRequestException;
 import jakarta.ws.rs.NotFoundException;
 import jakarta.ws.rs.core.Response;
+import lombok.SneakyThrows;
 import org.captcha.solver.domain.CaptchaVerification;
 import org.captcha.solver.factory.CaptchaFactory;
 import org.captcha.solver.repository.CaptchaRepository;
@@ -14,7 +15,6 @@ import org.mockito.MockitoSession;
 import org.mockito.quality.Strictness;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
@@ -170,7 +170,8 @@ class CaptchaServiceTest {
   class Add {
 
     @Test
-    void shouldAddCaptcha() throws IOException {
+    @SneakyThrows
+    void shouldAddCaptcha() {
       // given
       var path = Path.of(getSampleUri());
       var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));
@@ -189,7 +190,8 @@ class CaptchaServiceTest {
     }
 
     @Test
-    void shouldThrowBadRequestException() throws IOException {
+    @SneakyThrows
+    void shouldThrowBadRequestException() {
       // given
       var path = Path.of(getSampleUri());
       var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));
@@ -210,7 +212,8 @@ class CaptchaServiceTest {
     }
 
     @Test
-    void shouldThrowBadRequestExceptionWhenCaptchaIsAlreadyPresent() throws IOException {
+    @SneakyThrows
+    void shouldThrowBadRequestExceptionWhenCaptchaIsAlreadyPresent() {
       // given
       var path = Path.of(getSampleUri());
       var inputStream = new ByteArrayInputStream(Files.readAllBytes(path));
