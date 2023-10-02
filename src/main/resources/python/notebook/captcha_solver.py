@@ -66,9 +66,9 @@ gpu()
 
 print('Time (s) to convolve 32x7x7x3 filter over random 100x100x100x3 images '
       '(batch x height x width x channel). Sum of ten runs.')
-cpu_time = timeit.timeit('cpu()', number=10, setup="from __main__ import cpu")
+cpu_time = timeit.timeit('cpu()', number=10, setup='from __main__ import cpu')
 print('CPU (s):', cpu_time)
-gpu_time = timeit.timeit('gpu()', number=10, setup="from __main__ import gpu")
+gpu_time = timeit.timeit('gpu()', number=10, setup='from __main__ import gpu')
 print('GPU (s):', gpu_time)
 print('GPU speedup over CPU: {}x'.format(int(cpu_time/gpu_time)))
 
@@ -443,3 +443,14 @@ for i in range(len(images)):
 
 assert len(images) == len(wrong_predictions)
 plot_wrong_predictions(archive_path, img_format, wrong_predictions)
+
+"""# Disclaimer
+
+This notebook is provided for demonstration and educational purposes only, and should not be used for illegal activities. The author is not responsible for any improper use and users are expected to comply with all laws and regulations.
+
+Automatic CAPTCHA resolution may harm websites and users are advised to respect website policies and use this notebook ethically and legally.
+
+The author of this notebook does not guarantee the ability to resolve all types of CAPTCHA or specific results, as resolution depends on various factors, including CAPTCHA complexity and the specific implementation of the website.
+
+By using this notebook, users agree to this disclaimer and the author retains the right to change it at any time without notice.
+"""

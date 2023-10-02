@@ -104,3 +104,18 @@ simulating human behavior.
 * In the `src/main/resources/python/notebook` directory, there is the notebook in `ipynb` and `py` formats.
   Starting from this notebook and using, for example, [Google Colab](https://colab.research.google.com/),
   you can create a new model
+
+## Disclaimer
+
+This project is provided for demonstration and educational purposes only, and should not be used for illegal
+activities. The author is not responsible for any improper use and users are expected to comply with all laws and
+regulations.
+
+Automatic CAPTCHA resolution may harm websites and users are advised to respect website policies and use this
+project ethically and legally.
+
+The author of this project does not guarantee the ability to resolve all types of CAPTCHA or specific results,
+as resolution depends on various factors, including CAPTCHA complexity and the specific implementation of the website.
+
+By using this project, users agree to this disclaimer and the author retains the right to change it at any time
+without notice.
