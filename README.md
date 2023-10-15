@@ -1,4 +1,4 @@
-# Captcha Solver
+# CAPTCHA Solver
 
 ## Author
 
